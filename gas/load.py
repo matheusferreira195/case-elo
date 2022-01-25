@@ -10,7 +10,7 @@ def load_tabela_geral_f():
 
     con = get_connection_postgres(config)    
     df_leitura_gas = pd.read_parquet('/opt/airflow/tmp/trs/leitura_gas.parquet')
-    df_leitura_gas.to_sql('GAS_TABELA_GERAL_F', con, schema='trs', if_exists='replace')
+    df_leitura_gas.to_sql('GAS_TABELA_GERAL_F', con, schema='trs', if_exists='replace', index=False)
 
 def load_tabela_leitura_f():
     """Loads the data into the target database. 
@@ -18,7 +18,7 @@ def load_tabela_leitura_f():
 
     con = get_connection_postgres(config)
     df_leitura_gas = pd.read_parquet('/opt/airflow/tmp/raw/leitura.parquet')
-    df_leitura_gas.to_sql('GAS_LEITURA_F', con, schema='trs', if_exists='replace')
+    df_leitura_gas.to_sql('GAS_LEITURA_F', con, schema='trs', if_exists='replace', index=False)
 
 def load_tabela_medidor_d():
     """Loads the data into the target database. 
@@ -26,7 +26,7 @@ def load_tabela_medidor_d():
 
     con = get_connection_postgres(config)
     df_leitura_gas = pd.read_parquet('/opt/airflow/tmp/raw/medidor.parquet')
-    df_leitura_gas.to_sql('GAS_MEDIDOR_D', con, schema='trs', if_exists='replace')
+    df_leitura_gas.to_sql('GAS_MEDIDOR_D', con, schema='trs', if_exists='replace', index=False)
 
 def load_tabela_segmento_d():
     """Loads the data into the target database. 
@@ -34,7 +34,7 @@ def load_tabela_segmento_d():
     
     con = get_connection_postgres(config)
     df_leitura_gas = pd.read_parquet('/opt/airflow/tmp/raw/segmento_mercado.parquet')
-    df_leitura_gas.to_sql('GAS_SEGMENTO_D', con, schema='trs', if_exists='replace')
+    df_leitura_gas.to_sql('GAS_SEGMENTO_D', con, schema='trs', if_exists='replace', index=False)
 
 if __name__ == "__main__":
     """Debug purposes.

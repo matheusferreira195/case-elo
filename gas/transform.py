@@ -12,8 +12,8 @@ def transform():
     df_segmento_mercado = pd.read_parquet('/opt/airflow/tmp/raw/segmento_mercado.parquet')
     df_segmento_mercado.drop(columns=['DT_CARGA'], inplace=True)
 
-    df_tabela_resumo = df_leitura.merge(df_medidor, left_on=['SK_MEDIDOR', 'CD_MEDIDOR'], right_on=['SK_MEDIDOR', 'CD_MEDIDOR'], how='outer')
-    df_tabela_resumo = df_tabela_resumo.merge(df_segmento_mercado, left_on=['SK_SEGMENTO_MERCADO'],right_on=['SK_SEGMENTO_MERCADO'], how='outer')
+    df_tabela_resumo = df_leitura.merge(df_medidor, left_on=['SK_MEDIDOR', 'CD_MEDIDOR'], right_on=['SK_MEDIDOR', 'CD_MEDIDOR'], how='left')
+    df_tabela_resumo = df_tabela_resumo.merge(df_segmento_mercado, left_on=['SK_SEGMENTO_MERCADO'],right_on=['SK_SEGMENTO_MERCADO'], how='left')
 
     df_tabela_resumo.to_parquet('/opt/airflow/tmp/trs/leitura_gas.parquet')
 
