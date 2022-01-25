@@ -1,11 +1,20 @@
 import pandas as pd
 
 def get_dados(path_in, path_out, dict_dtype):
+    """Ingest the data that comes to the landing layer into the raw layer.
+
+    Args:
+        path_in (str): Landing data's path; 
+        path_out (str): Raw's output path;
+        dict_dtype (dict): Data format mapping.
+    """
 
     df = pd.read_excel(path_in, dtype=dict_dtype)
     df.to_parquet(path_out)
 
 def get_dados_medidor():
+    """Function that ingest the data for this particular data schema.
+    """
 
     dict_dtype = {
         'SK_MEDIDOR':str,
@@ -23,6 +32,8 @@ def get_dados_medidor():
     get_dados(path_in, path_out, dict_dtype)
 
 def get_dados_leitura():
+    """Function that ingest the data for this particular data schema.
+    """
 
     dict_dtype = {
         'CD_DOCUMENTO_LEITURA':str,
@@ -47,6 +58,8 @@ def get_dados_leitura():
     get_dados(path_in, path_out, dict_dtype)
 
 def get_dados_segmento_mercado():
+    """Function that ingest the data for this particular data schema.
+    """
     
     dict_dtype = {
         'SK_SEGMENTO_MERCADO':str,
@@ -60,6 +73,9 @@ def get_dados_segmento_mercado():
     get_dados(path_in, path_out, dict_dtype)
 
 if __name__ == "__main__":
+    """Debug purposes
+    """
+    
     get_dados_segmento_mercado()
     get_dados_leitura()
     get_dados_medidor()

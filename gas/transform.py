@@ -1,7 +1,8 @@
 import pandas as pd
 
-
 def transform():
+    """Agreggation of all inputs of data in the RAW layer to a consolidate table to the TRS layer. 
+    """
 
     df_leitura = pd.read_parquet('/opt/airflow/tmp/raw/leitura.parquet')
 
@@ -17,4 +18,7 @@ def transform():
     df_tabela_resumo.to_parquet('/opt/airflow/tmp/trs/leitura_gas.parquet')
 
 if __name__ == "__main__":
+    """Debug purposes.
+    """
+    
     transform()

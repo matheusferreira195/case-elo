@@ -1,27 +1,45 @@
 import os
+from airflow.hooks.base import BaseHook
+
+connection = BaseHook.get_connection("dw_elo")
 
 class Config:
-    USER = 'postgres'
-    PASSWORD = 'processo-elo'
-    HOST = 'elodb:5432'
+    """Basic config class. Contains data relevant to the child classes.
+    """
+    USER = connection.login
+    PASSWORD = connection.password
+    HOST = f'{connection.host}:{connection.port}'
 
 class HomologConfig(Config):
+    """Homologation environment config object.
+
+    Args:
+        Config (class): base config object
+    """
+
     AMBIENTE = 'homolog'
     CHUNK_SIZE = 110000
     DATABASE = 'dw_elo'
-    TABLENAME = 'CONSUMO_VAREJO_EUROMONITOR'
-    STORAGE_PATH = '/storage'
 class DevelopmentConfig(Config):
+    """Development environment config object.
+
+    Args:
+        Config (class): base config object
+    """
+
     AMBIENTE = 'dev'
     CHUNK_SIZE = 110000
     DATABASE = 'dw_elo'
-    TABLENAME = 'CONSUMO_VAREJO_EUROMONITOR'
-
 class ProductionConfig(Config):
+    """Production environment config object.
+
+    Args:
+        Config (class): base config object
+    """
+
     AMBIENTE = 'prod'
     CHUNK_SIZE = 110000
     DATABASE = 'dw_elo'
-    TABLENAME = 'CONSUMO_VAREJO_EUROMONITOR'
 
 config_by_name = dict(
     dev=DevelopmentConfig,
@@ -29,6 +47,14 @@ config_by_name = dict(
     producao=ProductionConfig
 )
 def get_config(ambiente_var=None):
+    """Selection function that gives the corresponding environment object.
+
+    Args:
+        ambiente_var (str, optional): Environment selector. Defaults to None.
+
+    Returns:
+        Class: Object with environment variables
+    """
     var = ambiente_var if ambiente_var else os.getenv('ambiente', 'dev')
     config = config_by_name[var]
 

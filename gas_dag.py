@@ -13,7 +13,7 @@ with DAG(
     start_date=datetime(2021, 1, 1),
     catchup=False,
     dagrun_timeout=timedelta(minutes=60),
-    tags=['cabecoes_sa', 'gas'],
+    tags=['cabecoes_sa', 'gas', 'prod'],
 ) as dag:
 
     task_get_dados_leitura = PythonOperator(
